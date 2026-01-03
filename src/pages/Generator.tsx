@@ -50,7 +50,8 @@ export default function Generator() {
                     experience: data.experience || [],
                     idNumber: data.id_number,
                     eventName: data.event_name,
-                    theme: data.theme || "modern"
+                    theme: (data.theme as Profile['theme']) || "modern",
+                    imagePosition: data.image_position || { x: 0, y: 0, scale: 1 }
                 });
                 setProfileId(id);
             }
