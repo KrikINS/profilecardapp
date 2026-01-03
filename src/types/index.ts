@@ -17,4 +17,9 @@ export interface Profile {
     email?: string;
     mobile?: string;
     theme: 'modern' | 'midnight' | 'emerald' | 'crimson';
+    imagePosition?: {
+        x: number;
+        y: number;
+        scale: number;
+    };
 }

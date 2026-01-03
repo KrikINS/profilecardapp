@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Generator from './pages/Generator';
+import SavedProfiles from './pages/SavedProfiles';
 import './index.css';
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/generator" element={<Generator />} />
+        <Route path="/saved" element={<SavedProfiles />} />
       </Routes>
     </BrowserRouter>
   );

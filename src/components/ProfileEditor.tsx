@@ -68,6 +68,73 @@ export const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, setProfil
                     />
                 </div>
 
+                {/* Image Adjustment */}
+                {profile.imageUrl && (
+                    <div className="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Adjust Image</label>
+                        <div className="grid grid-cols-3 gap-2">
+                            <div>
+                                <label className="block text-[10px] text-gray-400 mb-1">Scale</label>
+                                <input
+                                    type="range"
+                                    title="Image Scale"
+                                    min="1"
+                                    max="3"
+                                    step="0.1"
+                                    value={profile.imagePosition?.scale || 1}
+                                    onChange={(e) => setProfile(prev => ({
+                                        ...prev,
+                                        imagePosition: {
+                                            x: prev.imagePosition?.x || 0,
+                                            y: prev.imagePosition?.y || 0,
+                                            scale: parseFloat(e.target.value)
+                                        }
+                                    }))}
+                                    className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-[10px] text-gray-400 mb-1">Pos X</label>
+                                <input
+                                    type="range"
+                                    title="Image Position X"
+                                    min="-100"
+                                    max="100"
+                                    value={profile.imagePosition?.x || 0}
+                                    onChange={(e) => setProfile(prev => ({
+                                        ...prev,
+                                        imagePosition: {
+                                            x: parseInt(e.target.value),
+                                            y: prev.imagePosition?.y || 0,
+                                            scale: prev.imagePosition?.scale || 1
+                                        }
+                                    }))}
+                                    className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-[10px] text-gray-400 mb-1">Pos Y</label>
+                                <input
+                                    type="range"
+                                    title="Image Position Y"
+                                    min="-100"
+                                    max="100"
+                                    value={profile.imagePosition?.y || 0}
+                                    onChange={(e) => setProfile(prev => ({
+                                        ...prev,
+                                        imagePosition: {
+                                            x: prev.imagePosition?.x || 0,
+                                            y: parseInt(e.target.value),
+                                            scale: prev.imagePosition?.scale || 1
+                                        }
+                                    }))}
+                                    className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )}
+
                 {/* Basic Info */}
                 <div className="grid grid-cols-2 gap-4">
                     <div>

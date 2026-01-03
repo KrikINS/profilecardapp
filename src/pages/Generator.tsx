@@ -21,45 +21,48 @@ export default function Generator() {
         languages: [],
         experience: [],
         idNumber: "",
-        eventName: ""
+        eventName: "",
+        theme: "modern",
+        imagePosition: { x: 0, y: 0, scale: 1 }
     });
 
     // Load profile from URL if ID is present
     useEffect(() => {
+        const loadProfile = async (id: string) => {
+            setLoading(true);
+            const { data, error } = await supabase
+                .from('employee_profiles')
+                .select('*')
+                .eq('id', id)
+                .single();
+
+            if (error) {
+                console.error('Error loading profile:', error);
+                alert('Failed to load profile');
+            } else if (data) {
+                setProfile({
+                    name: data.name,
+                    role: data.role,
+                    imageUrl: data.image_url || "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&auto=format&fit=crop&q=60",
+                    age: data.age,
+                    nationality: data.nationality,
+                    languages: data.languages || [],
+                    experience: data.experience || [],
+                    idNumber: data.id_number,
+                    eventName: data.event_name,
+                    theme: data.theme || "modern"
+                });
+                setProfileId(id);
+            }
+            setLoading(false);
+        };
+
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
         if (id) {
             loadProfile(id);
         }
     }, []);
-
-    const loadProfile = async (id: string) => {
-        setLoading(true);
-        const { data, error } = await supabase
-            .from('employee_profiles')
-            .select('*')
-            .eq('id', id)
-            .single();
-
-        if (error) {
-            console.error('Error loading profile:', error);
-            alert('Failed to load profile');
-        } else if (data) {
-            setProfile({
-                name: data.name,
-                role: data.role,
-                imageUrl: data.image_url || "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&auto=format&fit=crop&q=60",
-                age: data.age,
-                nationality: data.nationality,
-                languages: data.languages || [],
-                experience: data.experience || [],
-                idNumber: data.id_number,
-                eventName: data.event_name
-            });
-            setProfileId(id);
-        }
-        setLoading(false);
-    };
 
     const handleSave = async () => {
         setLoading(true);
@@ -74,7 +77,8 @@ export default function Generator() {
             event_name: profile.eventName,
             languages: profile.languages,
             experience: profile.experience,
-            image_url: profile.imageUrl
+            image_url: profile.imageUrl,
+            image_position: profile.imagePosition
         };
 
         let result;
@@ -144,7 +148,12 @@ export default function Generator() {
                                 <h1 className="text-3xl font-bold">Profile Generator</h1>
                                 <p className="opacity-90">Create & Share employee cards.</p>
                             </div>
-                            {loading && <div className="text-sm bg-white/20 px-3 py-1 rounded-full animate-pulse">Saving...</div>}
+                            <div className="flex gap-3 items-center">
+                                <a href="/saved" className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                    View Saved
+                                </a>
+                                {loading && <div className="text-sm bg-white/20 px-3 py-1 rounded-full animate-pulse">Saving...</div>}
+                            </div>
                         </div>
                     </div>
 
