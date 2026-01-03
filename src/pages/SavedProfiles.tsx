@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import { Link, useNavigate } from 'react-router-dom';
 import type { Profile } from '../types';
+import { DEFAULT_AVATAR } from '../constants';
 
 // Extend Profile to include ID
 interface SavedProfile extends Profile {
@@ -99,7 +100,7 @@ export default function SavedProfiles() {
                                 <div className="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 group-hover:border-blue-500 transition-all shadow-lg hover:shadow-blue-500/20">
                                     <div className="h-32 overflow-hidden bg-gray-700 relative">
                                         <img
-                                            src={profile.imageUrl || "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&auto=format&fit=crop&q=60"}
+                                            src={profile.imageUrl || DEFAULT_AVATAR}
                                             alt={profile.name}
                                             className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                                         />

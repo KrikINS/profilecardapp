@@ -5,6 +5,7 @@ import { ProfileEditor } from '../components/ProfileEditor';
 import type { Profile } from '../types';
 import '../index.css';
 import { supabase } from '../lib/supabase';
+import { DEFAULT_AVATAR } from '../constants';
 
 export default function Generator() {
     const cardRef = useRef<HTMLDivElement>(null);
@@ -15,7 +16,7 @@ export default function Generator() {
     const [profile, setProfile] = useState<Profile>({
         name: "",
         role: "",
-        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png", // Generic Placeholder (Outline)
+        imageUrl: DEFAULT_AVATAR, // Generic Placeholder (Outline)
         age: 0,
         nationality: "",
         languages: [],
@@ -50,7 +51,7 @@ export default function Generator() {
                 setProfile({
                     name: data.name,
                     role: data.role,
-                    imageUrl: data.image_url || "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png",
+                    imageUrl: data.image_url || DEFAULT_AVATAR,
                     age: data.age,
                     nationality: data.nationality,
                     languages: data.languages || [],
