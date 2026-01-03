@@ -16,7 +16,7 @@ export interface Profile {
     eventName: string;
     email?: string;
     mobile?: string;
-    theme: 'modern' | 'midnight' | 'emerald' | 'crimson';
+    theme: 'modern' | 'midnight' | 'emerald' | 'crimson' | 'executive' | 'horizon' | 'oceanic' | 'nebula';
     imagePosition?: {
         x: number;
         y: number;

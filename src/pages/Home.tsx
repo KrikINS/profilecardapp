@@ -17,8 +17,8 @@ export default function Home() {
                 <div className="relative group cursor-default">
                     <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
                     <div className="relative bg-black ring-1 ring-gray-900 rounded-lg p-8">
-                        <h1 className="text-6xl font-black text-white tracking-tighter">
-                            Krik<span className="text-blue-500">INS</span>
+                        <h1 className="text-6xl font-black text-white tracking-tighter cursor-default">
+                            Krik<span className="text-blue-500 inline-block animate-spin-sideways-pause origin-center">INS</span>
                         </h1>
                     </div>
                 </div>

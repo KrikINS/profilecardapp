@@ -12,7 +12,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile }) => {
         modern: {
             headerBg: 'bg-[#1a1a1a]', // Black
             accentText: 'text-gray-900',
-            subText: 'text-gray-500',
+            subText: 'text-gray-500', // Changed from text-gray-300
             badgeBg: 'bg-[#111111]',
             headerText: 'text-white'
         },
@@ -36,6 +36,34 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile }) => {
             subText: 'text-red-600',
             badgeBg: 'bg-red-950',
             headerText: 'text-red-50'
+        },
+        executive: {
+            headerBg: 'bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900',
+            accentText: 'text-slate-800',
+            subText: 'text-slate-500',
+            badgeBg: 'bg-slate-900',
+            headerText: 'text-amber-500' // Gold accent
+        },
+        horizon: {
+            headerBg: 'bg-gradient-to-r from-orange-400 to-pink-500',
+            accentText: 'text-pink-600',
+            subText: 'text-orange-600',
+            badgeBg: 'bg-gradient-to-r from-orange-400 to-pink-500',
+            headerText: 'text-white'
+        },
+        oceanic: {
+            headerBg: 'bg-gradient-to-br from-cyan-600 to-blue-800',
+            accentText: 'text-blue-800',
+            subText: 'text-cyan-700',
+            badgeBg: 'bg-cyan-900',
+            headerText: 'text-cyan-50'
+        },
+        nebula: {
+            headerBg: 'bg-gradient-to-r from-violet-600 to-indigo-600',
+            accentText: 'text-indigo-900',
+            subText: 'text-violet-600',
+            badgeBg: 'bg-indigo-900',
+            headerText: 'text-indigo-100'
         }
     };
 
@@ -92,15 +120,20 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile }) => {
             </div>
 
             {/* Languages */}
-            <div className="flex justify-center gap-4 px-6 mb-10">
-                {profile.languages.map((lang, index) => (
-                    <span
-                        key={index}
-                        className={`${currentTheme.badgeBg} text-white text-[10px] font-bold py-3 px-6 rounded-full uppercase tracking-wider min-w-[120px] text-center transition-colors duration-300`}
-                    >
-                        {lang}
-                    </span>
-                ))}
+            <div className="px-6 mb-10 text-center">
+                <h3 className={`${currentTheme.subText} text-[10px] uppercase tracking-[0.2em] mb-4`}>
+                    Languages
+                </h3>
+                <div className="flex flex-wrap justify-center gap-2">
+                    {profile.languages.map((lang, index) => (
+                        <span
+                            key={index}
+                            className={`${currentTheme.badgeBg} text-white text-[10px] font-bold py-2 px-4 rounded-full uppercase tracking-wider min-w-[80px] text-center transition-colors duration-300 shadow-sm`}
+                        >
+                            {lang}
+                        </span>
+                    ))}
+                </div>
             </div>
 
             {/* Experience */}
@@ -124,7 +157,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile }) => {
 
             {/* Footer / ID */}
             <div className="px-6 pb-8">
-                <div className={`${currentTheme.badgeBg} text-gray-500 text-[10px] py-4 rounded-2xl text-center tracking-[0.5em] font-mono uppercase transition-colors duration-300`}>
+                <div className={`${currentTheme.badgeBg} text-white text-xs py-4 rounded-2xl text-center tracking-[0.3em] font-bold uppercase transition-colors duration-300 shadow-md border border-white/10`}>
                     {profile.eventName}
                 </div>
             </div>
