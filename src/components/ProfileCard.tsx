@@ -6,14 +6,49 @@ interface ProfileCardProps {
 }
 
 export const ProfileCard: React.FC<ProfileCardProps> = ({ profile }) => {
+    const theme = profile.theme || 'modern';
+
+    const themes = {
+        modern: {
+            headerBg: 'bg-[#1a1a1a]', // Black
+            accentText: 'text-gray-900',
+            subText: 'text-gray-500',
+            badgeBg: 'bg-[#111111]',
+            headerText: 'text-white'
+        },
+        midnight: {
+            headerBg: 'bg-blue-900',
+            accentText: 'text-blue-900',
+            subText: 'text-blue-600',
+            badgeBg: 'bg-blue-950',
+            headerText: 'text-blue-50'
+        },
+        emerald: {
+            headerBg: 'bg-emerald-900',
+            accentText: 'text-emerald-900',
+            subText: 'text-emerald-600',
+            badgeBg: 'bg-emerald-950',
+            headerText: 'text-emerald-50'
+        },
+        crimson: {
+            headerBg: 'bg-red-900',
+            accentText: 'text-red-900',
+            subText: 'text-red-600',
+            badgeBg: 'bg-red-950',
+            headerText: 'text-red-50'
+        }
+    };
+
+    const currentTheme = themes[theme];
+
     return (
         <div className="w-[375px] bg-white shadow-2xl overflow-hidden relative font-sans text-gray-900 mx-auto">
             {/* Header */}
-            <div className="bg-[#1a1a1a] h-40 pt-8 px-6 text-center">
-                <h2 className="text-white/90 text-[10px] uppercase tracking-[0.2em] font-medium mb-1">
+            <div className={`${currentTheme.headerBg} h-40 pt-8 px-6 text-center transition-colors duration-300`}>
+                <h2 className={`${currentTheme.headerText} opacity-90 text-[10px] uppercase tracking-[0.2em] font-medium mb-1`}>
                     Event Staff
                 </h2>
-                <h1 className="text-white font-bold text-xs uppercase tracking-[0.2em]">
+                <h1 className={`${currentTheme.headerText} font-bold text-xs uppercase tracking-[0.2em]`}>
                     Identification
                 </h1>
             </div>
@@ -21,11 +56,11 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile }) => {
             {/* Profile Image */}
             <div className="relative -mt-20 flex justify-center mb-6">
                 <div className="w-40 h-40 bg-white p-2 rounded-[2rem] shadow-lg relative z-10">
-                    <div className="w-full h-full rounded-[1.5rem] overflow-hidden bg-gray-100">
+                    <div className="w-full h-full rounded-[1.5rem] overflow-hidden bg-gray-100 flex items-center justify-center">
                         <img
                             src={profile.imageUrl}
                             alt={profile.name}
-                            className="w-full h-full object-cover origin-center transition-transform"
+                            className="w-full h-full object-contain origin-center transition-transform duration-100" // Changed to object-contain
                             style={{
                                 transform: `translate(${profile.imagePosition?.x || 0}px, ${profile.imagePosition?.y || 0}px) scale(${profile.imagePosition?.scale || 1})`
                             }}
@@ -38,8 +73,8 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile }) => {
 
             {/* Personal Info */}
             <div className="text-center px-6 mb-8">
-                <h2 className="text-2xl font-bold mb-2 tracking-tight">{profile.name}</h2>
-                <p className="text-gray-600 text-[10px] uppercase tracking-[0.2em] font-medium">
+                <h2 className={`text-2xl font-bold mb-2 tracking-tight ${currentTheme.accentText}`}>{profile.name}</h2>
+                <p className={`${currentTheme.subText} text-[10px] uppercase tracking-[0.2em] font-medium`}>
                     {profile.role}
                 </p>
             </div>
@@ -47,12 +82,12 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile }) => {
             {/* Details Grid */}
             <div className="grid grid-cols-2 gap-4 px-10 mb-8 max-w-xs mx-auto">
                 <div className="text-left">
-                    <p className="text-gray-500 text-[10px] uppercase tracking-[0.1em] mb-1">Age</p>
-                    <p className="text-lg font-bold">{profile.age}</p>
+                    <p className={`${currentTheme.subText} text-[10px] uppercase tracking-[0.1em] mb-1`}>Age</p>
+                    <p className={`text-lg font-bold ${currentTheme.accentText}`}>{profile.age}</p>
                 </div>
                 <div className="text-left">
-                    <p className="text-gray-500 text-[10px] uppercase tracking-[0.1em] mb-1">Nationality</p>
-                    <p className="text-lg font-bold">{profile.nationality}</p>
+                    <p className={`${currentTheme.subText} text-[10px] uppercase tracking-[0.1em] mb-1`}>Nationality</p>
+                    <p className={`text-lg font-bold ${currentTheme.accentText}`}>{profile.nationality}</p>
                 </div>
             </div>
 
@@ -61,7 +96,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile }) => {
                 {profile.languages.map((lang, index) => (
                     <span
                         key={index}
-                        className="bg-[#111111] text-white text-[10px] font-bold py-3 px-6 rounded-full uppercase tracking-wider min-w-[120px] text-center"
+                        className={`${currentTheme.badgeBg} text-white text-[10px] font-bold py-3 px-6 rounded-full uppercase tracking-wider min-w-[120px] text-center transition-colors duration-300`}
                     >
                         {lang}
                     </span>
@@ -70,14 +105,14 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile }) => {
 
             {/* Experience */}
             <div className="px-10 mb-12">
-                <h3 className="text-gray-500 text-[10px] uppercase tracking-[0.2em] mb-6">
+                <h3 className={`${currentTheme.subText} text-[10px] uppercase tracking-[0.2em] mb-6`}>
                     Experience
                 </h3>
                 <div className="space-y-6">
                     {profile.experience.map((exp) => (
                         <div key={exp.id} className="flex items-center gap-4">
-                            <div className="w-4 h-4 rounded-full border border-gray-300 flex items-center justify-center flex-shrink-0">
-                                <div className="w-2 h-2 text-gray-300">✓</div>
+                            <div className={`w-4 h-4 rounded-full border border-gray-300 flex items-center justify-center flex-shrink-0`}>
+                                <div className={`w-2 h-2 ${currentTheme.subText}`}>✓</div>
                             </div>
                             <p className="text-sm font-medium text-gray-800">
                                 {exp.company} <span className="text-gray-400">—</span> {exp.role}
@@ -89,7 +124,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ profile }) => {
 
             {/* Footer / ID */}
             <div className="px-6 pb-8">
-                <div className="bg-[#111111] text-gray-500 text-[10px] py-4 rounded-2xl text-center tracking-[0.5em] font-mono uppercase">
+                <div className={`${currentTheme.badgeBg} text-gray-500 text-[10px] py-4 rounded-2xl text-center tracking-[0.5em] font-mono uppercase transition-colors duration-300`}>
                     {profile.eventName}
                 </div>
             </div>
