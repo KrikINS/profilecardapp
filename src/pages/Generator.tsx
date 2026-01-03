@@ -38,7 +38,15 @@ export default function Generator() {
 
             if (error) {
                 console.error('Error loading profile:', error);
-                alert('Failed to load profile');
+                // If profile not found (404/PGRST116), reset ID to allow creating new
+                if (error.code === 'PGRST116' || error.message.includes('JSON object requested, multiple (or no) rows returned')) {
+                    alert('Profile not found (it may have been deleted). Resetting to new profile.');
+                    setProfileId(null);
+                    // Clear URL params without reload
+                    window.history.pushState({}, '', window.location.pathname);
+                } else {
+                    alert('Failed to load profile');
+                }
             } else if (data) {
                 setProfile({
                     name: data.name,
