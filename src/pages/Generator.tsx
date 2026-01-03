@@ -15,7 +15,7 @@ export default function Generator() {
     const [profile, setProfile] = useState<Profile>({
         name: "",
         role: "",
-        imageUrl: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&auto=format&fit=crop&q=60", // Generic Placeholder
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png", // Generic Placeholder (Outline)
         age: 0,
         nationality: "",
         languages: [],
@@ -36,22 +36,21 @@ export default function Generator() {
                 .eq('id', id)
                 .single();
 
-            if (error) {
-                console.error('Error loading profile:', error);
-                // If profile not found (404/PGRST116), reset ID to allow creating new
-                if (error.code === 'PGRST116' || error.message.includes('JSON object requested, multiple (or no) rows returned')) {
-                    alert('Profile not found (it may have been deleted). Resetting to new profile.');
-                    setProfileId(null);
-                    // Clear URL params without reload
-                    window.history.pushState({}, '', window.location.pathname);
-                } else {
-                    alert('Failed to load profile');
-                }
-            } else if (data) {
+            // Broad error handling to catch 404s, network issues, or deleted profiles
+            if (error || !data) {
+                console.warn('Profile load failed (likely 404), resetting:', error);
+
+                // Alert the user so they understand why the form is empty
+                alert('Profile not found (it may have been deleted). Resetting to new profile.');
+
+                // Reset state to "Create New" mode
+                setProfileId(null);
+                window.history.replaceState(null, '', window.location.pathname);
+            } else {
                 setProfile({
                     name: data.name,
                     role: data.role,
-                    imageUrl: data.image_url || "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&auto=format&fit=crop&q=60",
+                    imageUrl: data.image_url || "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png",
                     age: data.age,
                     nationality: data.nationality,
                     languages: data.languages || [],
