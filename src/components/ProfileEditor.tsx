@@ -189,10 +189,10 @@ export const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, setProfil
                         {['modern', 'midnight', 'emerald', 'crimson'].map((theme) => (
                             <button
                                 key={theme}
-                                onClick={() => setProfile(prev => ({ ...prev, theme: theme as any }))}
+                                onClick={() => setProfile(prev => ({ ...prev, theme: theme as Profile['theme'] }))}
                                 className={`px-4 py-2 rounded-lg text-sm font-medium capitalize border transition-all ${profile.theme === theme
-                                        ? 'bg-blue-600 text-white border-blue-600 ring-2 ring-blue-300'
-                                        : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100'
+                                    ? 'bg-blue-600 text-white border-blue-600 ring-2 ring-blue-300'
+                                    : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100'
                                     }`}
                             >
                                 {theme}
